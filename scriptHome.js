@@ -113,7 +113,7 @@ $("#modalFormEdit").on("click", "#Edit", function () {
     .text(alamatEdit);
 
   $("#modalFormEdit").modal("hide");
-  $("#modalEdit").modal("Show");
+  $("#modalEdit").modal("show");
   });
 
 $(document).on("click", ".icon-delete", function () {
