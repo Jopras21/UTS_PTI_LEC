@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="styleHome.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-logo">
+        <img src="./logo.png" alt="" />
+      </div>
+      <div class="nav-menu" id="navMenu">
+        <ul>
+          <li><a href="index.html" class="link">Login</a></li>
+          <li><a href="homepage.html" class="link active">Home</a></li>
+          <li><a href="about.html" class="link">About</a></li>
+        </ul>
+      </div>
+      <div class="nav-menu-btn">
+        <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+      </div>
+      <div>
+        <marquee>
+          | DON'T FORGET TO WATCH THE FINAL MATCH OF UMN FINAL CUP CHAMPION ON
+          29 MARCH 2024 AT 19:00 | FREE TICKETS FOR THE FIRST 10 PEOPLE!!!!! |
+          LOCATION : UMN BASKET BALL OUTDOOR COURT |
+        </marquee>
+      </div>
+    </nav>
+    <div class="wrapper">
+      <div class="container">
+        <body onload="setInterval('displayTime()', 1000);">
+          <div id="welcomeMessage"></div>
+          <h1 id="jam"></h1>
+        </body>
+        <br />
+        <div id="tabel-container" class="table-responsive">
+          <table id="data-table">
+            <thead>
+              <tr>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Pengaturan</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div>
+            <button
+              type="button"
+              id="TambahData"
+              class="btn btn-secondary mt-3"
+            >
+              Tambah
+            </button>
+            <button type="button" id="Tampilkan" class="btn btn-secondary mt-3">
+              Tampilkan
+            </button>
+            <button
+              type="button"
+              id="Sembunyikan"
+              class="btn btn-secondary mt-3"
+            >
+              Sembunyikan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalFormTambah"
+        tabindex="-1"
+        aria-labelledby="modalFormLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalFormLabel">Tambah Data</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="nim" class="form-label">NIM</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nim"
+                  placeholder="Masukkan NIM"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="nama" class="form-label">Nama</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nama"
+                  placeholder="Masukkan Nama"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="alamat"
+                  placeholder="Masukkan Alamat"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                aria-label="Reset"
+                onclick="resetForm('modalFormTambah')"
+              >
+                Reset
+              </button>
+              <button type="button" id="Tambah" class="btn btn-secondary">
+                Tambah
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalFormEdit"
+        tabindex="-1"
+        aria-labelledby="modalFormLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalFormLabel">Edit Data</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body" id="editFormContent">
+              <div class="mb-3">
+                <label for="nimEdit" class="form-label">NIM</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nimEdit"
+                  value="Disabled readonly input"
+                  aria-label="Disabled input example"
+                  disabled
+                />
+              </div>
+              <div class="mb-3">
+                <label for="namaEdit" class="form-label">Nama</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="namaEdit"
+                  placeholder="Masukkan Nama"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="alamatEdit" class="form-label">Alamat</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="alamatEdit"
+                  placeholder="Masukkan Alamat"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                aria-label="Reset"
+                data-bs-dismiss="modal"
+              >
+                Reset
+              </button>
+              <button type="button" id="Edit" class="btn btn-secondary">
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalFormDelete"
+        tabindex="-1"
+        aria-labelledby="modalFormLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalFormLabel">Hapus Data</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                aria-label="Reset"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="button" id="Delete" class="btn btn-secondary">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="ModalTambah"
+        tabindex="-1"
+        aria-labelledby="modalFormTambahLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-headertambah d-flex justify-content-between">
+              <h5 class="modal-title" id="modalFormTidakLengkapLabel">
+                Form Ditambahkan
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">Data Ditambahkan!!</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalFormTidakLengkap"
+        tabindex="-1"
+        aria-labelledby="modalFormTidakLengkapLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-headertidaklengkap d-flex justify-content-between">
+              <h5 class="modal-title" id="modalFormTidakLengkapLabel">
+                Data Tidak Lengkap
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">Harap lengkapi semua kolom!</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalNIM"
+        tabindex="-1"
+        aria-labelledby="modalNIM"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-headernim d-flex justify-content-between">
+              <h5 class="modal-title" id="modalFormTidakLengkapLabel">
+                NIM tidak valid!
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">Harap masukkan NIM dengan angka!</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalHapus"
+        tabindex="-1"
+        aria-labelledby="modalHapusLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-headerhapus d-flex justify-content-between">
+              <h5 class="modal-title" id="modalHapusLabel">Hapus Data</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">Data Telah DIHAPUS!!</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="modalEdit"
+        tabindex="-1"
+        aria-labelledby="modalEditLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-headeredit d-flex justify-content-between">
+              <h5 class="modal-title" id="modalHapusLabel">Edit Data</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">Data Telah Di Edit!!</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="scriptHome.js"></script>
+  </body>
+</html>
